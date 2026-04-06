@@ -1,0 +1,26 @@
+{
+  "meta": {
+    "atlas": "destrieux",
+    "mesh": "fsaverage5",
+    "description": "Destrieux atlas label indices for music-relevant cortical ROIs. Subcortical regions (amygdala, NAcc, hippocampus, cerebellum) are mapped separately from TRIBE v2 subcortical output."
+  },
+  "cortical_labels": {
+    "G_temp_sup-G_T_transv": 34,
+    "S_temporal_transverse": 71,
+    "G_temp_sup-Lateral": 33,
+    "G_precentral": 28,
+    "G_front_middle": 14,
+    "G_front_sup": 15,
+    "G_insular_short": 17,
+    "G_Ins_lg_and_S_cent_ins": 16,
+    "G_and_S_cingul-Ant": 3,
+    "G_orbital": 24
+  },
+  "subcortical_roi_indices": {
+    "amygdala": "model_output_index_TBD_from_validation",
+    "nucleus_accumbens": "model_output_index_TBD_from_validation",
+    "hippocampus": "model_output_index_TBD_from_validation",
+    "cerebellum": "model_output_index_TBD_from_validation"
+  },
+  "note": "Subcortical indices must be determined from TRIBE v2 output structure during Phase 0 validation. Update these values after running validation.ipynb and inspecting preds shape and segment labels."
+}

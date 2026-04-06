@@ -84,7 +84,7 @@ neural-playback/
 ### Phase 0 — Validation (MUST pass before any production code)
 
 ##### Task 0.1 — Initialize repo scaffold
-**Status:** not_started
+**Status:** done
 **Wave:** 1
 **Files:** `~/Development/neural-playback/.gitignore`, `~/Development/neural-playback/LICENSE`, `~/Development/neural-playback/README.md`, `~/Development/neural-playback/setup.py`, `~/Development/neural-playback/neural_playback/__init__.py`, `~/Development/neural-playback/requirements.txt`, `~/Development/neural-playback/requirements-colab.txt`
 **Read first:** `/Users/wesleyodd/Content/HANDOFF-neural-playback.md`
@@ -106,7 +106,7 @@ neural-playback/
 **Dependencies:** None
 
 ##### Task 0.2 — Create Colab VRAM validation notebook
-**Status:** not_started
+**Status:** done
 **Wave:** 2
 **Files:** `~/Development/neural-playback/notebooks/validation.ipynb`
 **Read first:** `/Users/wesleyodd/Obsidian/Javelin/research/content/2026-04-06-tribe-v2-music-model.md` (lines 82-88 for API), `/Users/wesleyodd/Development/Judo/.planning/BRAINSTORM-neural-playback.md` (lines 41-44 for assumptions A-02, A-04)
@@ -193,7 +193,7 @@ Cell 8 (markdown): "## Next Steps" + "If PASSED: proceed to Phase 1 core pipelin
 **Dependencies:** Task 0.1
 
 ##### Task 0.3 — Create config module with device detection
-**Status:** not_started
+**Status:** done
 **Wave:** 2
 **Files:** `~/Development/neural-playback/neural_playback/config.py`
 **Read first:** None (straightforward utility module)
@@ -219,7 +219,7 @@ Cell 8 (markdown): "## Next Steps" + "If PASSED: proceed to Phase 1 core pipelin
 ### Phase 1 — Core Pipeline (audio ingest → TRIBE v2 inference → raw output)
 
 ##### Task 1.1 — Audio preprocessing module
-**Status:** not_started
+**Status:** done
 **Wave:** 3
 **Files:** `~/Development/neural-playback/neural_playback/preprocess.py`, `~/Development/neural-playback/tests/test_preprocess.py`
 **Read first:** `/Users/wesleyodd/Development/Judo/.planning/BRAINSTORM-neural-playback.md` (lines 57-59, edge case 4 on audio preprocessing)
@@ -252,7 +252,7 @@ Cell 8 (markdown): "## Next Steps" + "If PASSED: proceed to Phase 1 core pipelin
 **Dependencies:** Task 0.3
 
 ##### Task 1.2 — TRIBE v2 inference module
-**Status:** not_started
+**Status:** done
 **Wave:** 3
 **Files:** `~/Development/neural-playback/neural_playback/inference.py`
 **Read first:** `/Users/wesleyodd/Obsidian/Javelin/research/content/2026-04-06-tribe-v2-music-model.md` (lines 82-88 for API pattern)
@@ -290,7 +290,7 @@ Cell 8 (markdown): "## Next Steps" + "If PASSED: proceed to Phase 1 core pipelin
 ### Phase 2 — ROI Mapping + Visualization
 
 ##### Task 2.1 — Curated ROI-to-music-trait JSON mapping
-**Status:** not_started
+**Status:** done
 **Wave:** 4
 **Files:** `~/Development/neural-playback/data/roi_music_map.json`, `~/Development/neural-playback/data/destrieux_subset.json`
 **Read first:** `/Users/wesleyodd/Development/Judo/.planning/BRAINSTORM-neural-playback.md` (lines 14-15 on D-04)
@@ -498,7 +498,7 @@ Cell 8 (markdown): "## Next Steps" + "If PASSED: proceed to Phase 1 core pipelin
 **Dependencies:** Task 0.1
 
 ##### Task 2.2 — ROI mapping module
-**Status:** not_started
+**Status:** done
 **Wave:** 4
 **Files:** `~/Development/neural-playback/neural_playback/roi_mapping.py`, `~/Development/neural-playback/tests/test_roi_mapping.py`
 **Read first:** `~/Development/neural-playback/data/roi_music_map.json` (created in Task 2.1)
@@ -522,7 +522,7 @@ Cell 8 (markdown): "## Next Steps" + "If PASSED: proceed to Phase 1 core pipelin
 **Dependencies:** Task 0.3, Task 2.1
 
 ##### Task 2.3 — Annotated brain render (Nilearn + matplotlib callout overlay)
-**Status:** not_started
+**Status:** done
 **Wave:** 5
 **Files:** `~/Development/neural-playback/neural_playback/visualization.py`
 **Read first:** `~/Development/neural-playback/data/roi_music_map.json` (for annotation + timing_insight_template fields per region)
@@ -588,7 +588,7 @@ Cell 8 (markdown): "## Next Steps" + "If PASSED: proceed to Phase 1 core pipelin
 ### Phase 3 — Neural Report Card
 
 ##### Task 3.1 — Report card scoring module
-**Status:** not_started
+**Status:** done
 **Wave:** 5
 **Files:** `~/Development/neural-playback/neural_playback/report_card.py`, `~/Development/neural-playback/tests/test_report_card.py`
 **Read first:** `~/Development/neural-playback/data/roi_music_map.json` (created in Task 2.1)
@@ -643,7 +643,7 @@ Cell 8 (markdown): "## Next Steps" + "If PASSED: proceed to Phase 1 core pipelin
 ### Phase 4 — Colab Notebook + README + Polish
 
 ##### Task 4.1 — Primary Colab demo notebook
-**Status:** not_started
+**Status:** done
 **Wave:** 6
 **Files:** `~/Development/neural-playback/notebooks/neural_playback_demo.ipynb`
 **Read first:** `~/Development/neural-playback/notebooks/validation.ipynb` (created in Task 0.2 for structure reference), `/Users/wesleyodd/Development/Judo/.planning/BRAINSTORM-neural-playback.md` (lines 16, 68 for D-06 and brand alignment)
@@ -773,7 +773,7 @@ Cell 18 (markdown): Footer with license, attribution, disclaimer, and link to Gi
 **Dependencies:** Task 1.1, Task 1.2, Task 2.2, Task 2.3, Task 3.1
 
 ##### Task 4.2 — README with usage, architecture, screenshots
-**Status:** not_started
+**Status:** done
 **Wave:** 6
 **Files:** `~/Development/neural-playback/README.md`
 **Read first:** `~/Development/neural-playback/neural_playback/__init__.py` (for version)
@@ -812,7 +812,7 @@ Cell 18 (markdown): Footer with license, attribution, disclaimer, and link to Gi
 ### Phase 5 — CLI Wrapper (Secondary / Stretch)
 
 ##### Task 5.1 — Click CLI for local M4 Max usage
-**Status:** not_started
+**Status:** done
 **Wave:** 7
 **Files:** `~/Development/neural-playback/cli/main.py`, `~/Development/neural-playback/cli/__init__.py`
 **Read first:** `~/Development/neural-playback/neural_playback/inference.py` (for function signatures)
@@ -973,3 +973,22 @@ must_haves:
 8. **Name collision** — PyPI confirmed clean. GitHub check pending.
 9. **Brand alignment** — Dark background (#0a0a0a), clean typography, no generic data-science aesthetics (Task 2.3).
 10. **Dependency weight** — Colab-first absorbs this. requirements.txt with pins for local users.
+
+---
+
+## Execution Log
+
+| Task | Status | Concerns | Key Findings |
+|------|--------|----------|--------------|
+| 0.1 | DONE | — | Repo scaffold, LICENSE (CC BY-NC), gitignore, requirements, setup.py |
+| 0.2 | DONE | — | Colab validation notebook — 8 cells, VRAM + timing benchmark |
+| 0.3 | DONE | — | config.py — device detection (cuda→mps→cpu), disclaimer constant |
+| 1.1 | DONE | — | preprocess.py + tests — MP3→16kHz mono MP4, 5/5 tests pass |
+| 1.2 | DONE | — | inference.py — TRIBE v2 wrapper, import verified |
+| 2.1 | DONE | — | roi_music_map.json + destrieux_subset.json — 12 regions, all annotation fields |
+| 2.2 | DONE | — | roi_mapping.py + tests — vertex→ROI aggregation, 5/5 tests pass |
+| 2.3 | DONE | fig.annotate bug fixed | visualization.py — Nilearn render + matplotlib callout overlay (ax_overlay pattern) |
+| 3.1 | DONE | — | report_card.py + tests — sigmoid scoring, formatted output, 6/6 tests pass |
+| 4.1 | DONE | — | neural_playback_demo.ipynb — 18 cells, full pipeline |
+| 4.2 | DONE | — | README — architecture diagram, trait table, Quick Start, disclaimers |
+| 5.1 | DONE | — | cli/main.py — Click CLI with --input, --output, --device, --no-render, --format |

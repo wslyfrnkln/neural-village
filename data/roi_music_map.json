@@ -1,0 +1,163 @@
+{
+  "meta": {
+    "version": "1.0",
+    "description": "Curated mapping from brain ROIs to music perception traits. Based on published meta-analyses of music and auditory neuroscience.",
+    "disclaimer": "These mappings reflect consensus from peer-reviewed literature. Individual brains vary. Scores are predictions, not measurements.",
+    "sources": [
+      "Zatorre et al. 2007 - Neural specializations for music",
+      "Koelsch 2014 - Brain correlates of music-evoked emotions",
+      "Trost et al. 2012 - Mapping aesthetic musical emotions in the brain",
+      "Grahn & Brett 2007 - Rhythm and beat perception in motor areas"
+    ]
+  },
+  "regions": [
+    {
+      "roi_name": "primary_auditory_cortex",
+      "display_name": "auditory_cortex",
+      "destrieux_labels": ["G_temp_sup-G_T_transv", "S_temporal_transverse"],
+      "hemisphere": "bilateral",
+      "trait": "Sonic Detail",
+      "trait_description": "Sensitivity to timbral complexity, harmonic richness, and spectral detail",
+      "annotation": "Processes raw sound — texture, timbre, harmonic content",
+      "timing_insight_template": "Active here = the ear is working hard at this moment",
+      "weight": 1.0,
+      "confidence": "high"
+    },
+    {
+      "roi_name": "superior_temporal_gyrus",
+      "display_name": "superior_temporal_gyrus",
+      "destrieux_labels": ["G_temp_sup-Lateral"],
+      "hemisphere": "bilateral",
+      "trait": "Melodic Engagement",
+      "trait_description": "Processing of pitch patterns, melodic contour, and harmonic progression",
+      "annotation": "Tracks melody and pitch — where the brain follows the song",
+      "timing_insight_template": "Lighting up here = strong melodic pull at this point",
+      "weight": 1.0,
+      "confidence": "high"
+    },
+    {
+      "roi_name": "motor_cortex",
+      "display_name": "motor_cortex",
+      "destrieux_labels": ["G_precentral"],
+      "hemisphere": "bilateral",
+      "trait": "Groove",
+      "trait_description": "Motor system engagement predicting urge to move, tap, or dance",
+      "annotation": "Controls movement — activates when music makes you want to move",
+      "timing_insight_template": "Motor cortex before a hook = the body knows it's coming",
+      "weight": 1.0,
+      "confidence": "high"
+    },
+    {
+      "roi_name": "premotor_cortex",
+      "display_name": "premotor_cortex",
+      "destrieux_labels": ["G_front_middle"],
+      "hemisphere": "bilateral",
+      "trait": "Groove",
+      "trait_description": "Motor planning and rhythmic anticipation",
+      "annotation": "Plans movement before it happens — rhythmic anticipation",
+      "timing_insight_template": "Active here = brain anticipating the next beat",
+      "weight": 0.7,
+      "confidence": "high"
+    },
+    {
+      "roi_name": "supplementary_motor_area",
+      "display_name": "supplementary_motor_area",
+      "destrieux_labels": ["G_front_sup"],
+      "hemisphere": "bilateral",
+      "trait": "Groove",
+      "trait_description": "Internal rhythm generation and beat prediction",
+      "annotation": "Generates internal rhythm — the brain's metronome",
+      "timing_insight_template": "Lit up = the groove is locked in here",
+      "weight": 0.6,
+      "confidence": "medium"
+    },
+    {
+      "roi_name": "amygdala",
+      "display_name": "amygdala",
+      "destrieux_labels": [],
+      "hemisphere": "bilateral",
+      "subcortical": true,
+      "trait": "Emotional Intensity",
+      "trait_description": "Emotional arousal response to musical tension, dissonance, and surprise",
+      "annotation": "Emotion center — responds to tension, surprise, and release",
+      "timing_insight_template": "Firing here = something emotionally charged at this moment",
+      "weight": 1.0,
+      "confidence": "high"
+    },
+    {
+      "roi_name": "nucleus_accumbens",
+      "display_name": "nucleus_accumbens",
+      "destrieux_labels": [],
+      "hemisphere": "bilateral",
+      "subcortical": true,
+      "trait": "Reward / Pleasure",
+      "trait_description": "Dopaminergic reward response — musical chills, anticipation payoff, hook satisfaction",
+      "annotation": "Dopamine reward center — chills, payoff, hook satisfaction",
+      "timing_insight_template": "Active = the brain is releasing dopamine right here",
+      "weight": 1.0,
+      "confidence": "high"
+    },
+    {
+      "roi_name": "hippocampus",
+      "display_name": "hippocampus",
+      "destrieux_labels": [],
+      "hemisphere": "bilateral",
+      "subcortical": true,
+      "trait": "Memory Resonance",
+      "trait_description": "Familiarity processing, musical memory formation, nostalgic response",
+      "annotation": "Memory formation — links music to past experiences",
+      "timing_insight_template": "Lit here = this section may encode as a strong memory",
+      "weight": 0.8,
+      "confidence": "medium"
+    },
+    {
+      "roi_name": "insula",
+      "display_name": "insula",
+      "destrieux_labels": ["G_insular_short", "G_Ins_lg_and_S_cent_ins"],
+      "hemisphere": "bilateral",
+      "trait": "Emotional Intensity",
+      "trait_description": "Interoceptive awareness — felt bodily response to music (chills, tension, release)",
+      "annotation": "Body awareness — where you feel music physically",
+      "timing_insight_template": "Active = a felt physical response at this moment",
+      "weight": 0.8,
+      "confidence": "high"
+    },
+    {
+      "roi_name": "anterior_cingulate",
+      "display_name": "anterior_cingulate",
+      "destrieux_labels": ["G_and_S_cingul-Ant"],
+      "hemisphere": "bilateral",
+      "trait": "Sonic Complexity",
+      "trait_description": "Conflict monitoring — engagement with unexpected harmonic or rhythmic events",
+      "annotation": "Monitors conflict — activates on harmonic surprise or rhythm breaks",
+      "timing_insight_template": "Active = something unexpected happened here",
+      "weight": 0.7,
+      "confidence": "medium"
+    },
+    {
+      "roi_name": "prefrontal_cortex",
+      "display_name": "prefrontal_cortex",
+      "destrieux_labels": ["G_front_sup", "G_orbital"],
+      "hemisphere": "bilateral",
+      "trait": "Sonic Complexity",
+      "trait_description": "Higher-order music structure processing — form, narrative arc, compositional complexity",
+      "annotation": "Processes song structure — narrative arc, arrangement decisions",
+      "timing_insight_template": "Lit up = brain parsing the larger structure of the song",
+      "weight": 0.8,
+      "confidence": "medium"
+    },
+    {
+      "roi_name": "cerebellum",
+      "display_name": "cerebellum",
+      "destrieux_labels": [],
+      "hemisphere": "bilateral",
+      "subcortical": true,
+      "trait": "Groove",
+      "trait_description": "Precise timing and rhythmic coordination",
+      "annotation": "The brain's timing engine — millisecond rhythm tracking",
+      "timing_insight_template": "Active here = tight rhythmic precision at this moment",
+      "weight": 0.5,
+      "confidence": "medium"
+    }
+  ]
+}
