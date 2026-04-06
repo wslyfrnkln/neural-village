@@ -1,0 +1,7 @@
+# Colab already provides: torch, torchaudio, numpy, pandas, matplotlib, scipy
+tribev2
+nilearn>=0.10.0
+plotly>=5.18.0
+nibabel>=5.0.0
+ffmpeg-python>=0.2.0
+soundfile>=0.12.0
