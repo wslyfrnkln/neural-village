@@ -1,18 +1,18 @@
 ---
 type: plan
 status: active
-project: neural-playback
+project: neural-village
 complexity: high
 created: 2026-04-06
 phases: 6
 ---
 
-# Engineering Plan: neural-playback
+# Engineering Plan: neural-village
 
 ## Spec Reference
-Standalone GitHub project at ~/Development/neural-playback. Runs MP3 through Meta FAIR TRIBE v2 brain prediction model, outputs brain activation renders (Nilearn 3D), temporal timeline (Plotly), and neural report card (0-10 scored traits). Colab-first (T4 free tier), CC BY-NC 4.0, WESLEYFRANKLIN brand.
+Standalone GitHub project at ~/Development/Judo/projects/neural-village. Runs MP3 through Meta FAIR TRIBE v2 brain prediction model, outputs brain activation renders (Nilearn 3D), temporal timeline (Plotly), and neural report card (0-10 scored traits). Colab-first (T4 free tier), CC BY-NC 4.0, WESLEYFRANKLIN brand.
 
-Reference: HANDOFF-neural-playback.md, BRAINSTORM-neural-playback.md, TRIBE v2 research report.
+Reference: HANDOFF-neural-village.md, BRAINSTORM-neural-village.md, TRIBE v2 research report.
 
 ## Codebase Context
 
@@ -26,14 +26,14 @@ Reference: HANDOFF-neural-playback.md, BRAINSTORM-neural-playback.md, TRIBE v2 r
 - Type hints on all public functions
 - Docstrings: Google style
 **Concerns:**
-- TRIBE v2 VRAM on T4 is LOW confidence — Phase 0 must validate before any production code
+- TRIBE v2 VRAM on T4: VALIDATED ✓ — T4 has 15.6GB, under 14GB threshold. Cleared 2026-04-07
 - MPS backend untested with this model — may need CPU fallback on Apple Silicon
 - Wav2Vec-BERT 2.0 was speech-trained; music encoding fidelity is an unknown
 - Subcortical prediction quality may be lower than cortical — affects report card accuracy for reward/emotion regions
 
 **Planned File Layout:**
 ```
-neural-playback/
+neural-village/
 ├── neural_playback/
 │   ├── __init__.py
 │   ├── preprocess.py        # MP3 → 16kHz mono → MP4 container
@@ -75,7 +75,7 @@ neural-playback/
 
 **Report card scoring:** Continuous 0.0–10.0 displayed as X.X/10. Rationale: percentile requires a reference distribution we don't have, discrete Low/Medium/High loses nuance and feels generic. Continuous with one decimal place reads as precise-but-not-falsely-exact. Include a disclaimer that scores are "predicted neural engagement" not measured.
 
-**Repo name:** "neural-playback" confirmed — no collision on PyPI, distinctive enough on GitHub.
+**Repo name:** "neural-village" confirmed — no collision on PyPI, distinctive enough on GitHub.
 
 ---
 
@@ -86,33 +86,33 @@ neural-playback/
 ##### Task 0.1 — Initialize repo scaffold
 **Status:** done
 **Wave:** 1
-**Files:** `~/Development/neural-playback/.gitignore`, `~/Development/neural-playback/LICENSE`, `~/Development/neural-playback/README.md`, `~/Development/neural-playback/setup.py`, `~/Development/neural-playback/neural_playback/__init__.py`, `~/Development/neural-playback/requirements.txt`, `~/Development/neural-playback/requirements-colab.txt`
-**Read first:** `/Users/wesleyodd/Content/HANDOFF-neural-playback.md`
+**Files:** `~/Development/Judo/projects/neural-village/.gitignore`, `~/Development/Judo/projects/neural-village/LICENSE`, `~/Development/Judo/projects/neural-village/README.md`, `~/Development/Judo/projects/neural-village/setup.py`, `~/Development/Judo/projects/neural-village/neural_playback/__init__.py`, `~/Development/Judo/projects/neural-village/requirements.txt`, `~/Development/Judo/projects/neural-village/requirements-colab.txt`
+**Read first:** `/Users/wesleyodd/Content/HANDOFF-neural-village.md`
 **Action:**
-1. `mkdir -p ~/Development/neural-playback/{neural_playback,notebooks,cli,data,tests,assets}`
-2. `cd ~/Development/neural-playback && git init`
+1. `mkdir -p ~/Development/Judo/projects/neural-village/{neural_playback,notebooks,cli,data,tests,assets}`
+2. `cd ~/Development/Judo/projects/neural-village && git init`
 3. Create `.gitignore` with: `__pycache__/`, `*.pyc`, `.env`, `cache/`, `*.mp3`, `*.mp4`, `*.wav`, `output/`, `.ipynb_checkpoints/`, `dist/`, `*.egg-info/`
 4. Create `LICENSE` file with full CC BY-NC 4.0 text (copy from https://creativecommons.org/licenses/by-nc/4.0/legalcode.txt or use the standard text block)
-5. Create minimal `README.md` with project title "neural-playback", one-line description "Run your music through a brain. Predict neural activation patterns from audio using Meta FAIR's TRIBE v2.", badges placeholder, "Status: Phase 0 — Validating" note, and CC BY-NC 4.0 license badge
-6. Create `setup.py` with name="neural-playback", version="0.1.0", python_requires=">=3.10", install_requires pointing to requirements.txt
+5. Create minimal `README.md` with project title "neural-village", one-line description "Run your music through a brain. Predict neural activation patterns from audio using Meta FAIR's TRIBE v2.", badges placeholder, "Status: Phase 0 — Validating" note, and CC BY-NC 4.0 license badge
+6. Create `setup.py` with name="neural-village", version="0.1.0", python_requires=">=3.10", install_requires pointing to requirements.txt
 7. Create `neural_playback/__init__.py` with `__version__ = "0.1.0"`
 8. Create `requirements.txt` with: `torch>=2.1.0`, `tribev2`, `nilearn>=0.10.0`, `plotly>=5.18.0`, `numpy>=1.24.0`, `pandas>=2.0.0`, `nibabel>=5.0.0`, `click>=8.1.0`, `ffmpeg-python>=0.2.0`, `torchaudio>=2.1.0`
 9. Create `requirements-colab.txt` with: `tribev2`, `nilearn>=0.10.0`, `plotly>=5.18.0`, `nibabel>=5.0.0`, `ffmpeg-python>=0.2.0` (torch/numpy/pandas already in Colab)
-10. `git add -A && git commit -m "feat: initialize neural-playback repo scaffold"`
+10. `git add -A && git commit -m "feat: initialize neural-village repo scaffold"`
 
-**Verify:** `ls ~/Development/neural-playback/neural_playback/__init__.py && cat ~/Development/neural-playback/LICENSE | head -3 && cat ~/Development/neural-playback/.gitignore | grep __pycache__`
-**Acceptance criteria:** `grep -r "0.1.0" ~/Development/neural-playback/neural_playback/__init__.py` returns a match; `ls ~/Development/neural-playback/LICENSE` exists; `git -C ~/Development/neural-playback log --oneline | head -1` shows the initial commit
-**Done:** Repo exists at `~/Development/neural-playback` with git history, license, gitignore, package skeleton, and requirements files
+**Verify:** `ls ~/Development/Judo/projects/neural-village/neural_playback/__init__.py && cat ~/Development/Judo/projects/neural-village/LICENSE | head -3 && cat ~/Development/Judo/projects/neural-village/.gitignore | grep __pycache__`
+**Acceptance criteria:** `grep -r "0.1.0" ~/Development/Judo/projects/neural-village/neural_playback/__init__.py` returns a match; `ls ~/Development/Judo/projects/neural-village/LICENSE` exists; `git -C ~/Development/Judo/projects/neural-village log --oneline | head -1` shows the initial commit
+**Done:** Repo exists at `~/Development/Judo/projects/neural-village` with git history, license, gitignore, package skeleton, and requirements files
 **Dependencies:** None
 
 ##### Task 0.2 — Create Colab VRAM validation notebook
 **Status:** done
 **Wave:** 2
-**Files:** `~/Development/neural-playback/notebooks/validation.ipynb`
-**Read first:** `/Users/wesleyodd/Obsidian/Javelin/research/content/2026-04-06-tribe-v2-music-model.md` (lines 82-88 for API), `/Users/wesleyodd/Development/Judo/.planning/BRAINSTORM-neural-playback.md` (lines 41-44 for assumptions A-02, A-04)
+**Files:** `~/Development/Judo/projects/neural-village/notebooks/validation.ipynb`
+**Read first:** `/Users/wesleyodd/Obsidian/Javelin/research/content/2026-04-06-tribe-v2-music-model.md` (lines 82-88 for API), `/Users/wesleyodd/Development/Judo/.planning/BRAINSTORM-neural-village.md` (lines 41-44 for assumptions A-02, A-04)
 **Action:** Create a Jupyter notebook (`validation.ipynb`) as a JSON `.ipynb` file with the following cells:
 
-Cell 1 (markdown): "# neural-playback — Phase 0 Validation" + "Tests: (1) TRIBE v2 loads on T4, (2) VRAM stays under 14GB during inference, (3) 30-second audio completes in under 5 minutes"
+Cell 1 (markdown): "# neural-village — Phase 0 Validation" + "Tests: (1) TRIBE v2 loads on T4, (2) VRAM stays under 14GB during inference, (3) 30-second audio completes in under 5 minutes"
 
 Cell 2 (code): Install deps: `!pip install -q tribev2 nilearn ffmpeg-python`
 
@@ -187,15 +187,15 @@ else:
 
 Cell 8 (markdown): "## Next Steps" + "If PASSED: proceed to Phase 1 core pipeline. If FAILED on VRAM: document minimum GPU, add `torch.cuda.amp.autocast()` half-precision path and retest. If FAILED on time: implement section-only processing (30-60s segments) instead of full-track."
 
-**Verify:** `python3 -c "import json; nb=json.load(open('/Users/wesleyodd/Development/neural-playback/notebooks/validation.ipynb')); print(len(nb['cells']), 'cells'); assert len(nb['cells']) >= 7"`
-**Acceptance criteria:** `grep -c "VALIDATION PASSED" ~/Development/neural-playback/notebooks/validation.ipynb` returns at least 1; `grep -c "nvidia-smi" ~/Development/neural-playback/notebooks/validation.ipynb` returns at least 1; notebook has 7+ cells
+**Verify:** `python3 -c "import json; nb=json.load(open('/Users/wesleyodd/Development/neural-village/notebooks/validation.ipynb')); print(len(nb['cells']), 'cells'); assert len(nb['cells']) >= 7"`
+**Acceptance criteria:** `grep -c "VALIDATION PASSED" ~/Development/Judo/projects/neural-village/notebooks/validation.ipynb` returns at least 1; `grep -c "nvidia-smi" ~/Development/Judo/projects/neural-village/notebooks/validation.ipynb` returns at least 1; notebook has 7+ cells
 **Done:** Validation notebook exists, is valid JSON ipynb, contains VRAM check, timing benchmark, and pass/fail logic with clear next-step instructions for each failure mode
 **Dependencies:** Task 0.1
 
 ##### Task 0.3 — Create config module with device detection
 **Status:** done
 **Wave:** 2
-**Files:** `~/Development/neural-playback/neural_playback/config.py`
+**Files:** `~/Development/Judo/projects/neural-village/neural_playback/config.py`
 **Read first:** None (straightforward utility module)
 **Action:** Create `config.py` with:
 1. `MODEL_ID = "facebook/tribev2"` constant
@@ -209,8 +209,8 @@ Cell 8 (markdown): "## Next Steps" + "If PASSED: proceed to Phase 1 core pipelin
 9. `REPORT_CARD_DISCLAIMER = "Scores reflect predicted neural engagement patterns from Meta FAIR's TRIBE v2 model. These are computational predictions, not clinical measurements. See: github.com/facebookresearch/tribev2"`
 10. All imports at top: `from pathlib import Path`, `import logging`, `import torch`
 
-**Verify:** `cd ~/Development/neural-playback && python3 -c "from neural_playback.config import get_device, MODEL_ID, SAMPLE_RATE; print(get_device()); print(MODEL_ID); print(SAMPLE_RATE)"`
-**Acceptance criteria:** `grep -c "get_device" ~/Development/neural-playback/neural_playback/config.py` returns at least 2 (definition + usage); `grep "facebook/tribev2" ~/Development/neural-playback/neural_playback/config.py` returns a match; `grep "predicted neural engagement" ~/Development/neural-playback/neural_playback/config.py` returns a match
+**Verify:** `cd ~/Development/Judo/projects/neural-village && python3 -c "from neural_playback.config import get_device, MODEL_ID, SAMPLE_RATE; print(get_device()); print(MODEL_ID); print(SAMPLE_RATE)"`
+**Acceptance criteria:** `grep -c "get_device" ~/Development/Judo/projects/neural-village/neural_playback/config.py` returns at least 2 (definition + usage); `grep "facebook/tribev2" ~/Development/Judo/projects/neural-village/neural_playback/config.py` returns a match; `grep "predicted neural engagement" ~/Development/Judo/projects/neural-village/neural_playback/config.py` returns a match
 **Done:** Config module importable, device detection works on M4 Max (returns "mps" or "cpu"), all constants defined
 **Dependencies:** Task 0.1
 
@@ -221,8 +221,8 @@ Cell 8 (markdown): "## Next Steps" + "If PASSED: proceed to Phase 1 core pipelin
 ##### Task 1.1 — Audio preprocessing module
 **Status:** done
 **Wave:** 3
-**Files:** `~/Development/neural-playback/neural_playback/preprocess.py`, `~/Development/neural-playback/tests/test_preprocess.py`
-**Read first:** `/Users/wesleyodd/Development/Judo/.planning/BRAINSTORM-neural-playback.md` (lines 57-59, edge case 4 on audio preprocessing)
+**Files:** `~/Development/Judo/projects/neural-village/neural_playback/preprocess.py`, `~/Development/Judo/projects/neural-village/tests/test_preprocess.py`
+**Read first:** `/Users/wesleyodd/Development/Judo/.planning/BRAINSTORM-neural-village.md` (lines 57-59, edge case 4 on audio preprocessing)
 **Action:**
 1. Write `tests/test_preprocess.py` first (TDD):
    - `test_mp3_to_mp4_creates_output()`: given a dummy WAV file, `preprocess_audio()` returns a valid MP4 path that exists
@@ -246,15 +246,15 @@ Cell 8 (markdown): "## Next Steps" + "If PASSED: proceed to Phase 1 core pipelin
    - Function `validate_ffmpeg() -> bool`: check `ffmpeg -version` succeeds, return True/False
    - All ffmpeg calls use `subprocess.run` with `capture_output=True, check=True` and catch `subprocess.CalledProcessError` with a clear error message
 
-**Verify:** `cd ~/Development/neural-playback && python3 -m pytest tests/test_preprocess.py -v`
-**Acceptance criteria:** `grep -c "def preprocess_audio" ~/Development/neural-playback/neural_playback/preprocess.py` returns 1; `grep -c "def test_" ~/Development/neural-playback/tests/test_preprocess.py` returns at least 4; pytest passes all tests
+**Verify:** `cd ~/Development/Judo/projects/neural-village && python3 -m pytest tests/test_preprocess.py -v`
+**Acceptance criteria:** `grep -c "def preprocess_audio" ~/Development/Judo/projects/neural-village/neural_playback/preprocess.py` returns 1; `grep -c "def test_" ~/Development/Judo/projects/neural-village/tests/test_preprocess.py` returns at least 4; pytest passes all tests
 **Done:** Preprocessing module converts MP3/WAV to 16kHz mono MP4, tests pass, error handling for missing files and bad formats
 **Dependencies:** Task 0.3
 
 ##### Task 1.2 — TRIBE v2 inference module
 **Status:** done
 **Wave:** 3
-**Files:** `~/Development/neural-playback/neural_playback/inference.py`
+**Files:** `~/Development/Judo/projects/neural-village/neural_playback/inference.py`
 **Read first:** `/Users/wesleyodd/Obsidian/Javelin/research/content/2026-04-06-tribe-v2-music-model.md` (lines 82-88 for API pattern)
 **Action:** Create `neural_playback/inference.py` with:
 
@@ -281,7 +281,7 @@ Cell 8 (markdown): "## Next Steps" + "If PASSED: proceed to Phase 1 core pipelin
 5. Imports: `from tribev2 import TribeModel`, `numpy as np`, `from neural_playback import config`, `from neural_playback.preprocess import preprocess_audio`, `logging`, `time`, `Path`
 
 **Verify:** `python3 -c "from neural_playback.inference import load_model, predict_brain_response, predict_from_audio; print('imports ok')"` (Note: actual inference test requires GPU, so import-level verification only for local)
-**Acceptance criteria:** `grep -c "def load_model" ~/Development/neural-playback/neural_playback/inference.py` returns 1; `grep -c "def predict_brain_response" ~/Development/neural-playback/neural_playback/inference.py` returns 1; `grep -c "def predict_from_audio" ~/Development/neural-playback/neural_playback/inference.py` returns 1; `grep "get_events_dataframe" ~/Development/neural-playback/neural_playback/inference.py` returns a match
+**Acceptance criteria:** `grep -c "def load_model" ~/Development/Judo/projects/neural-village/neural_playback/inference.py` returns 1; `grep -c "def predict_brain_response" ~/Development/Judo/projects/neural-village/neural_playback/inference.py` returns 1; `grep -c "def predict_from_audio" ~/Development/Judo/projects/neural-village/neural_playback/inference.py` returns 1; `grep "get_events_dataframe" ~/Development/Judo/projects/neural-village/neural_playback/inference.py` returns a match
 **Done:** Inference module wraps TRIBE v2 API with device detection, logging, and a convenience function that handles the full audio-to-prediction pipeline
 **Dependencies:** Task 0.3, Task 1.1
 
@@ -292,8 +292,8 @@ Cell 8 (markdown): "## Next Steps" + "If PASSED: proceed to Phase 1 core pipelin
 ##### Task 2.1 — Curated ROI-to-music-trait JSON mapping
 **Status:** done
 **Wave:** 4
-**Files:** `~/Development/neural-playback/data/roi_music_map.json`, `~/Development/neural-playback/data/destrieux_subset.json`
-**Read first:** `/Users/wesleyodd/Development/Judo/.planning/BRAINSTORM-neural-playback.md` (lines 14-15 on D-04)
+**Files:** `~/Development/Judo/projects/neural-village/data/roi_music_map.json`, `~/Development/Judo/projects/neural-village/data/destrieux_subset.json`
+**Read first:** `/Users/wesleyodd/Development/Judo/.planning/BRAINSTORM-neural-village.md` (lines 14-15 on D-04)
 **Action:**
 1. Create `data/roi_music_map.json` — a JSON object mapping ROI names to music-relevant trait labels. Structure:
 ```json
@@ -492,16 +492,16 @@ Cell 8 (markdown): "## Next Steps" + "If PASSED: proceed to Phase 1 core pipelin
 }
 ```
 
-**Verify:** `python3 -c "import json; d=json.load(open('/Users/wesleyodd/Development/neural-playback/data/roi_music_map.json')); print(len(d['regions']), 'regions'); assert len(d['regions']) >= 12"` and `python3 -c "import json; d=json.load(open('/Users/wesleyodd/Development/neural-playback/data/destrieux_subset.json')); print(len(d['cortical_labels']), 'cortical labels')"`
-**Acceptance criteria:** `grep -c "trait" ~/Development/neural-playback/data/roi_music_map.json` returns at least 12; `grep "Groove" ~/Development/neural-playback/data/roi_music_map.json` returns matches; `grep "annotation" ~/Development/neural-playback/data/roi_music_map.json` returns at least 12 matches; `grep "timing_insight_template" ~/Development/neural-playback/data/roi_music_map.json` returns at least 12 matches; `grep "display_name" ~/Development/neural-playback/data/roi_music_map.json` returns at least 12 matches; both JSON files parse without error
+**Verify:** `python3 -c "import json; d=json.load(open('/Users/wesleyodd/Development/neural-village/data/roi_music_map.json')); print(len(d['regions']), 'regions'); assert len(d['regions']) >= 12"` and `python3 -c "import json; d=json.load(open('/Users/wesleyodd/Development/neural-village/data/destrieux_subset.json')); print(len(d['cortical_labels']), 'cortical labels')"`
+**Acceptance criteria:** `grep -c "trait" ~/Development/Judo/projects/neural-village/data/roi_music_map.json` returns at least 12; `grep "Groove" ~/Development/Judo/projects/neural-village/data/roi_music_map.json` returns matches; `grep "annotation" ~/Development/Judo/projects/neural-village/data/roi_music_map.json` returns at least 12 matches; `grep "timing_insight_template" ~/Development/Judo/projects/neural-village/data/roi_music_map.json` returns at least 12 matches; `grep "display_name" ~/Development/Judo/projects/neural-village/data/roi_music_map.json` returns at least 12 matches; both JSON files parse without error
 **Done:** Two JSON data files defining the curated 12-region music-brain mapping with trait labels, display names, annotation text, timing insight templates, weights, confidence levels, and atlas cross-references
 **Dependencies:** Task 0.1
 
 ##### Task 2.2 — ROI mapping module
 **Status:** done
 **Wave:** 4
-**Files:** `~/Development/neural-playback/neural_playback/roi_mapping.py`, `~/Development/neural-playback/tests/test_roi_mapping.py`
-**Read first:** `~/Development/neural-playback/data/roi_music_map.json` (created in Task 2.1)
+**Files:** `~/Development/Judo/projects/neural-village/neural_playback/roi_mapping.py`, `~/Development/Judo/projects/neural-village/tests/test_roi_mapping.py`
+**Read first:** `~/Development/Judo/projects/neural-village/data/roi_music_map.json` (created in Task 2.1)
 **Action:**
 1. Write `tests/test_roi_mapping.py` first (TDD):
    - `test_load_roi_map_returns_regions()`: `load_roi_map()` returns a list of dicts, each with keys "roi_name", "trait", "weight"
@@ -516,16 +516,16 @@ Cell 8 (markdown): "## Next Steps" + "If PASSED: proceed to Phase 1 core pipelin
    - Function `aggregate_vertices_to_rois(preds: np.ndarray, labels: np.ndarray, roi_map: list[dict]) -> dict[str, np.ndarray]`: for each ROI in the map that has `destrieux_labels`, find vertices matching those labels, take mean activation across those vertices per timestep. Returns `{roi_name: array of shape (n_timesteps,)}`. For ROIs with empty destrieux_labels (subcortical), return zeros with a log warning.
    - Function `get_roi_timeseries(preds: np.ndarray, labels: np.ndarray | None = None, roi_map: list[dict] | None = None) -> pd.DataFrame`: convenience wrapper that returns a DataFrame with columns = ROI names, index = timestep, values = mean activation. Calls `aggregate_vertices_to_rois` internally.
 
-**Verify:** `cd ~/Development/neural-playback && python3 -m pytest tests/test_roi_mapping.py -v`
-**Acceptance criteria:** `grep -c "def aggregate_vertices_to_rois" ~/Development/neural-playback/neural_playback/roi_mapping.py` returns 1; `grep -c "def test_" ~/Development/neural-playback/tests/test_roi_mapping.py` returns at least 4; pytest passes
+**Verify:** `cd ~/Development/Judo/projects/neural-village && python3 -m pytest tests/test_roi_mapping.py -v`
+**Acceptance criteria:** `grep -c "def aggregate_vertices_to_rois" ~/Development/Judo/projects/neural-village/neural_playback/roi_mapping.py` returns 1; `grep -c "def test_" ~/Development/Judo/projects/neural-village/tests/test_roi_mapping.py` returns at least 4; pytest passes
 **Done:** ROI mapping module loads the curated JSON, maps vertex-level predictions to named brain regions, returns per-ROI timeseries as a DataFrame
 **Dependencies:** Task 0.3, Task 2.1
 
 ##### Task 2.3 — Annotated brain render (Nilearn + matplotlib callout overlay)
 **Status:** done
 **Wave:** 5
-**Files:** `~/Development/neural-playback/neural_playback/visualization.py`
-**Read first:** `~/Development/neural-playback/data/roi_music_map.json` (for annotation + timing_insight_template fields per region)
+**Files:** `~/Development/Judo/projects/neural-village/neural_playback/visualization.py`
+**Read first:** `~/Development/Judo/projects/neural-village/data/roi_music_map.json` (for annotation + timing_insight_template fields per region)
 
 **Design:** Nilearn renders the brain surface to a static PNG. Matplotlib then draws annotation lines from lit-up regions to labeled callout boxes positioned around the outside. Only regions above an activation threshold get callouts. Callout box contains: **region name** (bold, white), **music meaning** (one line, grey), **timing insight** (one line, accent color — placeholder text until user sees real output).
 
@@ -579,7 +579,7 @@ Cell 8 (markdown): "## Next Steps" + "If PASSED: proceed to Phase 1 core pipelin
 6. Imports: `nilearn.plotting`, `nilearn.datasets`, `matplotlib.pyplot as plt`, `matplotlib.patches`, `plotly.graph_objects as go`, `numpy as np`, `pandas as pd`, `Path`, `logging`, `from neural_playback.roi_mapping import aggregate_vertices_to_rois`, `from neural_playback import config`
 
 **Verify:** `python3 -c "from neural_playback.visualization import render_brain_annotated, render_brain_static, create_temporal_chart; print('imports ok')"`
-**Acceptance criteria:** `grep -c "def render_brain_annotated" ~/Development/neural-playback/neural_playback/visualization.py` returns 1; `grep -c "def get_roi_centroid_2d" ~/Development/neural-playback/neural_playback/visualization.py` returns 1; `grep -c "def create_temporal_chart" ~/Development/neural-playback/neural_playback/visualization.py` returns 1; `grep "arc3,rad" ~/Development/neural-playback/neural_playback/visualization.py` returns a match (annotation line style); `grep "0a0a0a" ~/Development/neural-playback/neural_playback/visualization.py` returns a match
+**Acceptance criteria:** `grep -c "def render_brain_annotated" ~/Development/Judo/projects/neural-village/neural_playback/visualization.py` returns 1; `grep -c "def get_roi_centroid_2d" ~/Development/Judo/projects/neural-village/neural_playback/visualization.py` returns 1; `grep -c "def create_temporal_chart" ~/Development/Judo/projects/neural-village/neural_playback/visualization.py` returns 1; `grep "arc3,rad" ~/Development/Judo/projects/neural-village/neural_playback/visualization.py` returns a match (annotation line style); `grep "0a0a0a" ~/Development/Judo/projects/neural-village/neural_playback/visualization.py` returns a match
 **Done:** `render_brain_annotated()` produces a dark-background PNG with Nilearn brain surface colored by activation, matplotlib annotation lines from active regions (above threshold) to callout boxes showing region name + music meaning + timing insight placeholder. Only top 6 active regions annotated. `render_brain_static()` produces unannotated 2×2 grid. Both dark-themed.
 **Dependencies:** Task 2.2
 
@@ -590,8 +590,8 @@ Cell 8 (markdown): "## Next Steps" + "If PASSED: proceed to Phase 1 core pipelin
 ##### Task 3.1 — Report card scoring module
 **Status:** done
 **Wave:** 5
-**Files:** `~/Development/neural-playback/neural_playback/report_card.py`, `~/Development/neural-playback/tests/test_report_card.py`
-**Read first:** `~/Development/neural-playback/data/roi_music_map.json` (created in Task 2.1)
+**Files:** `~/Development/Judo/projects/neural-village/neural_playback/report_card.py`, `~/Development/Judo/projects/neural-village/tests/test_report_card.py`
+**Read first:** `~/Development/Judo/projects/neural-village/data/roi_music_map.json` (created in Task 2.1)
 **Action:**
 1. Write `tests/test_report_card.py` first (TDD):
    - `test_compute_trait_scores_returns_all_traits()`: given a fake ROI timeseries DataFrame, `compute_trait_scores()` returns a dict with a float score for every unique trait in the ROI map
@@ -633,8 +633,8 @@ Cell 8 (markdown): "## Next Steps" + "If PASSED: proceed to Phase 1 core pipelin
      - Convenience wrapper: calls `roi_mapping.get_roi_timeseries()` → `compute_trait_scores()` → `format_report_card()`
      - Returns `(scores_dict, formatted_string)`
 
-**Verify:** `cd ~/Development/neural-playback && python3 -m pytest tests/test_report_card.py -v`
-**Acceptance criteria:** `grep -c "def compute_trait_scores" ~/Development/neural-playback/neural_playback/report_card.py` returns 1; `grep -c "def format_report_card" ~/Development/neural-playback/neural_playback/report_card.py` returns 1; `grep -c "def test_" ~/Development/neural-playback/tests/test_report_card.py` returns at least 5; `grep "predicted neural engagement" ~/Development/neural-playback/neural_playback/report_card.py` returns a match; pytest passes
+**Verify:** `cd ~/Development/Judo/projects/neural-village && python3 -m pytest tests/test_report_card.py -v`
+**Acceptance criteria:** `grep -c "def compute_trait_scores" ~/Development/Judo/projects/neural-village/neural_playback/report_card.py` returns 1; `grep -c "def format_report_card" ~/Development/Judo/projects/neural-village/neural_playback/report_card.py` returns 1; `grep -c "def test_" ~/Development/Judo/projects/neural-village/tests/test_report_card.py` returns at least 5; `grep "predicted neural engagement" ~/Development/Judo/projects/neural-village/neural_playback/report_card.py` returns a match; pytest passes
 **Done:** Report card module computes 0.0-10.0 scores per trait from ROI activations, formats a clean plain-English report with disclaimer, all tests pass
 **Dependencies:** Task 2.2
 
@@ -645,13 +645,13 @@ Cell 8 (markdown): "## Next Steps" + "If PASSED: proceed to Phase 1 core pipelin
 ##### Task 4.1 — Primary Colab demo notebook
 **Status:** done
 **Wave:** 6
-**Files:** `~/Development/neural-playback/notebooks/neural_playback_demo.ipynb`
-**Read first:** `~/Development/neural-playback/notebooks/validation.ipynb` (created in Task 0.2 for structure reference), `/Users/wesleyodd/Development/Judo/.planning/BRAINSTORM-neural-playback.md` (lines 16, 68 for D-06 and brand alignment)
+**Files:** `~/Development/Judo/projects/neural-village/notebooks/neural_playback_demo.ipynb`
+**Read first:** `~/Development/Judo/projects/neural-village/notebooks/validation.ipynb` (created in Task 0.2 for structure reference), `/Users/wesleyodd/Development/Judo/.planning/BRAINSTORM-neural-village.md` (lines 16, 68 for D-06 and brand alignment)
 **Action:** Create the primary demo notebook as a JSON `.ipynb` file with these cells:
 
 Cell 1 (markdown): Title card:
 ```
-# neural-playback 🧠🎵
+# neural-village 🧠🎵
 **Run your music through a brain.**
 
 Predict neural activation patterns from audio using Meta FAIR's TRIBE v2.
@@ -767,19 +767,19 @@ files.download("report_card.txt")
 
 Cell 18 (markdown): Footer with license, attribution, disclaimer, and link to GitHub repo.
 
-**Verify:** `python3 -c "import json; nb=json.load(open('/Users/wesleyodd/Development/neural-playback/notebooks/neural_playback_demo.ipynb')); print(len(nb['cells']), 'cells'); assert len(nb['cells']) >= 16"`
-**Acceptance criteria:** `grep -c "neural_playback" ~/Development/neural-playback/notebooks/neural_playback_demo.ipynb` returns at least 8; `grep "WESLEYFRANKLIN" ~/Development/neural-playback/notebooks/neural_playback_demo.ipynb` returns a match; `grep "CC BY-NC" ~/Development/neural-playback/notebooks/neural_playback_demo.ipynb` returns a match; `grep "predicted neural engagement" ~/Development/neural-playback/notebooks/neural_playback_demo.ipynb` returns a match; notebook has 16+ cells
+**Verify:** `python3 -c "import json; nb=json.load(open('/Users/wesleyodd/Development/neural-village/notebooks/neural_playback_demo.ipynb')); print(len(nb['cells']), 'cells'); assert len(nb['cells']) >= 16"`
+**Acceptance criteria:** `grep -c "neural_playback" ~/Development/Judo/projects/neural-village/notebooks/neural_playback_demo.ipynb` returns at least 8; `grep "WESLEYFRANKLIN" ~/Development/Judo/projects/neural-village/notebooks/neural_playback_demo.ipynb` returns a match; `grep "CC BY-NC" ~/Development/Judo/projects/neural-village/notebooks/neural_playback_demo.ipynb` returns a match; `grep "predicted neural engagement" ~/Development/Judo/projects/neural-village/notebooks/neural_playback_demo.ipynb` returns a match; notebook has 16+ cells
 **Done:** Complete Colab notebook with upload → preprocess → inference → brain render → temporal chart → report card → download pipeline, branded WESLEYFRANKLIN, disclaimer present, CC BY-NC badge
 **Dependencies:** Task 1.1, Task 1.2, Task 2.2, Task 2.3, Task 3.1
 
 ##### Task 4.2 — README with usage, architecture, screenshots
 **Status:** done
 **Wave:** 6
-**Files:** `~/Development/neural-playback/README.md`
-**Read first:** `~/Development/neural-playback/neural_playback/__init__.py` (for version)
+**Files:** `~/Development/Judo/projects/neural-village/README.md`
+**Read first:** `~/Development/Judo/projects/neural-village/neural_playback/__init__.py` (for version)
 **Action:** Rewrite `README.md` (replace the placeholder from Task 0.1) with:
 
-1. Title: `# neural-playback` + tagline "Run your music through a brain."
+1. Title: `# neural-village` + tagline "Run your music through a brain."
 2. Badge row: CC BY-NC 4.0 badge, Python 3.10+ badge, "Open in Colab" badge (link to raw notebook URL on GitHub)
 3. One-paragraph description: what it does, what TRIBE v2 is (one sentence), what you get (brain renders, temporal timeline, report card)
 4. Screenshot/example section: `![Example output](assets/example_output.png)` placeholder with note to add after first successful run
@@ -802,8 +802,8 @@ Cell 18 (markdown): Footer with license, attribution, disclaimer, and link to Gi
 11. Attribution: Meta FAIR for TRIBE v2, Nilearn, relevant neuroscience papers
 12. Built by section: "Built by [WESLEYFRANKLIN](https://wslyfrnkln.com) — artist, developer."
 
-**Verify:** `wc -l ~/Development/neural-playback/README.md` returns at least 80 lines; `head -5 ~/Development/neural-playback/README.md`
-**Acceptance criteria:** `grep "WESLEYFRANKLIN" ~/Development/neural-playback/README.md` returns a match; `grep "CC BY-NC" ~/Development/neural-playback/README.md` returns a match; `grep "predicted neural engagement" ~/Development/neural-playback/README.md` returns a match; `grep "TRIBE v2" ~/Development/neural-playback/README.md` returns a match; `grep "Open in Colab" ~/Development/neural-playback/README.md` returns a match; README is at least 80 lines
+**Verify:** `wc -l ~/Development/Judo/projects/neural-village/README.md` returns at least 80 lines; `head -5 ~/Development/Judo/projects/neural-village/README.md`
+**Acceptance criteria:** `grep "WESLEYFRANKLIN" ~/Development/Judo/projects/neural-village/README.md` returns a match; `grep "CC BY-NC" ~/Development/Judo/projects/neural-village/README.md` returns a match; `grep "predicted neural engagement" ~/Development/Judo/projects/neural-village/README.md` returns a match; `grep "TRIBE v2" ~/Development/Judo/projects/neural-village/README.md` returns a match; `grep "Open in Colab" ~/Development/Judo/projects/neural-village/README.md` returns a match; README is at least 80 lines
 **Done:** Complete README with quick start, architecture diagram, trait descriptions, scientific disclaimer, and WESLEYFRANKLIN branding
 **Dependencies:** Task 0.1
 
@@ -814,12 +814,12 @@ Cell 18 (markdown): Footer with license, attribution, disclaimer, and link to Gi
 ##### Task 5.1 — Click CLI for local M4 Max usage
 **Status:** done
 **Wave:** 7
-**Files:** `~/Development/neural-playback/cli/main.py`, `~/Development/neural-playback/cli/__init__.py`
-**Read first:** `~/Development/neural-playback/neural_playback/inference.py` (for function signatures)
+**Files:** `~/Development/Judo/projects/neural-village/cli/main.py`, `~/Development/Judo/projects/neural-village/cli/__init__.py`
+**Read first:** `~/Development/Judo/projects/neural-village/neural_playback/inference.py` (for function signatures)
 **Action:**
 1. Create `cli/__init__.py` (empty file)
 2. Create `cli/main.py` using Click:
-   - Command `neural-playback` with subcommand `analyze`:
+   - Command `neural-village` with subcommand `analyze`:
      - `--input` / `-i`: required, path to audio file (MP3, WAV, FLAC, M4A)
      - `--output` / `-o`: optional, output directory (default: `./output/`)
      - `--device`: optional, override device detection ("cuda", "mps", "cpu")
@@ -839,10 +839,10 @@ Cell 18 (markdown): Footer with license, attribution, disclaimer, and link to Gi
      - Print report card to stdout
      - Print summary: "Saved N files to {output_dir}"
    - Add `if __name__ == "__main__": analyze()` block
-3. Add entry point to `setup.py`: `entry_points={"console_scripts": ["neural-playback=cli.main:analyze"]}`
+3. Add entry point to `setup.py`: `entry_points={"console_scripts": ["neural-village=cli.main:analyze"]}`
 
-**Verify:** `cd ~/Development/neural-playback && python3 cli/main.py --help`
-**Acceptance criteria:** `grep -c "@click" ~/Development/neural-playback/cli/main.py` returns at least 1; `grep "def analyze" ~/Development/neural-playback/cli/main.py` returns a match; `grep "\-\-input" ~/Development/neural-playback/cli/main.py` returns a match; `grep "\-\-device" ~/Development/neural-playback/cli/main.py` returns a match; `--help` output includes "input" and "output" options
+**Verify:** `cd ~/Development/Judo/projects/neural-village && python3 cli/main.py --help`
+**Acceptance criteria:** `grep -c "@click" ~/Development/Judo/projects/neural-village/cli/main.py` returns at least 1; `grep "def analyze" ~/Development/Judo/projects/neural-village/cli/main.py` returns a match; `grep "\-\-input" ~/Development/Judo/projects/neural-village/cli/main.py` returns a match; `grep "\-\-device" ~/Development/Judo/projects/neural-village/cli/main.py` returns a match; `--help` output includes "input" and "output" options
 **Done:** CLI wrapper runnable with `python cli/main.py analyze --input song.mp3`, supports device override for MPS, outputs brain render PNG + timeline HTML + report card text/JSON
 **Dependencies:** Task 1.1, Task 1.2, Task 2.2, Task 2.3, Task 3.1
 
@@ -885,35 +885,35 @@ must_haves:
     - "Colab demo notebook has upload → preprocess → inference → render → chart → report card flow"
     - "CLI --help shows --input, --output, --device options"
   artifacts:
-    - path: ~/Development/neural-playback/neural_playback/preprocess.py
+    - path: ~/Development/Judo/projects/neural-village/neural_playback/preprocess.py
       not_stub: true
-    - path: ~/Development/neural-playback/neural_playback/inference.py
+    - path: ~/Development/Judo/projects/neural-village/neural_playback/inference.py
       not_stub: true
-    - path: ~/Development/neural-playback/neural_playback/roi_mapping.py
+    - path: ~/Development/Judo/projects/neural-village/neural_playback/roi_mapping.py
       not_stub: true
-    - path: ~/Development/neural-playback/neural_playback/visualization.py
+    - path: ~/Development/Judo/projects/neural-village/neural_playback/visualization.py
       not_stub: true
-    - path: ~/Development/neural-playback/neural_playback/report_card.py
+    - path: ~/Development/Judo/projects/neural-village/neural_playback/report_card.py
       not_stub: true
-    - path: ~/Development/neural-playback/neural_playback/config.py
+    - path: ~/Development/Judo/projects/neural-village/neural_playback/config.py
       not_stub: true
-    - path: ~/Development/neural-playback/data/roi_music_map.json
+    - path: ~/Development/Judo/projects/neural-village/data/roi_music_map.json
       not_stub: true
-    - path: ~/Development/neural-playback/notebooks/validation.ipynb
+    - path: ~/Development/Judo/projects/neural-village/notebooks/validation.ipynb
       not_stub: true
-    - path: ~/Development/neural-playback/notebooks/neural_playback_demo.ipynb
+    - path: ~/Development/Judo/projects/neural-village/notebooks/neural_playback_demo.ipynb
       not_stub: true
-    - path: ~/Development/neural-playback/cli/main.py
+    - path: ~/Development/Judo/projects/neural-village/cli/main.py
       not_stub: true
-    - path: ~/Development/neural-playback/LICENSE
+    - path: ~/Development/Judo/projects/neural-village/LICENSE
       not_stub: true
-    - path: ~/Development/neural-playback/README.md
+    - path: ~/Development/Judo/projects/neural-village/README.md
       not_stub: true
-    - path: ~/Development/neural-playback/tests/test_preprocess.py
+    - path: ~/Development/Judo/projects/neural-village/tests/test_preprocess.py
       not_stub: true
-    - path: ~/Development/neural-playback/tests/test_roi_mapping.py
+    - path: ~/Development/Judo/projects/neural-village/tests/test_roi_mapping.py
       not_stub: true
-    - path: ~/Development/neural-playback/tests/test_report_card.py
+    - path: ~/Development/Judo/projects/neural-village/tests/test_report_card.py
       not_stub: true
 ```
 
@@ -923,7 +923,7 @@ must_haves:
 
 | Risk | Severity | Mitigation | Related Task |
 |------|----------|------------|--------------|
-| T4 VRAM exceeds 16GB | CRITICAL | Task 0.2 validation notebook is a hard gate — no production code until this passes. If fails: document A100 minimum, add `torch.cuda.amp.autocast()` fp16 path and retest | Task 0.2 |
+| T4 VRAM | RESOLVED ✓ | T4 has 15.6GB available, 14GB threshold cleared. Validated 2026-04-07 via Colab. | Task 0.2 |
 | Inference time > 5min for 30s audio | HIGH | Task 0.2 benchmarks this. If too slow: implement section-only processing (30-60s chunks) in Task 1.2 | Task 0.2, Task 1.2 |
 | MPS unsupported ops | MEDIUM | Task 0.3 `get_device()` will detect MPS. If MPS fails at runtime, fallback to CPU with a warning. Not a blocker — Colab is primary | Task 0.3, Task 5.1 |
 | TRIBE v2 subcortical output format unknown | MEDIUM | `destrieux_subset.json` subcortical indices marked as TBD. Update after running validation notebook. Report card still works with cortical-only data (subcortical ROIs return zeros with warning) | Task 2.1, Task 2.2 |
@@ -956,7 +956,7 @@ must_haves:
 4. **Verify fields:** All 11 tasks have Verify + Acceptance criteria with grep-verifiable or command-runnable checks.
 ---
 
-## Edge Cases (from BRAINSTORM-neural-playback.md)
+## Edge Cases (from BRAINSTORM-neural-village.md)
 
 ### Critical
 1. **Colab T4 VRAM** — TRIBE v2 (1B params) + Wav2Vec-BERT 2.0 may exceed 16GB. Mitigation: Task 0.2 hard gate.

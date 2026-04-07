@@ -2,7 +2,8 @@
   "meta": {
     "atlas": "destrieux",
     "mesh": "fsaverage5",
-    "description": "Destrieux atlas label indices for music-relevant cortical ROIs. Subcortical regions (amygdala, NAcc, hippocampus, cerebellum) are mapped separately from TRIBE v2 subcortical output."
+    "subcortical_atlas": "harvard-oxford-subcortical",
+    "description": "Destrieux atlas label indices for music-relevant cortical ROIs. Subcortical regions use Harvard-Oxford subcortical atlas via TRIBE v2's get_subcortical_roi_indices(roi) — resolved by name at runtime, not hardcoded indices."
   },
   "cortical_labels": {
     "G_temp_sup-G_T_transv": 34,
@@ -16,11 +17,11 @@
     "G_and_S_cingul-Ant": 3,
     "G_orbital": 24
   },
-  "subcortical_roi_indices": {
-    "amygdala": "model_output_index_TBD_from_validation",
-    "nucleus_accumbens": "model_output_index_TBD_from_validation",
-    "hippocampus": "model_output_index_TBD_from_validation",
-    "cerebellum": "model_output_index_TBD_from_validation"
+  "subcortical_roi_names": {
+    "amygdala": "Amygdala",
+    "nucleus_accumbens": "Nucleus Accumbens",
+    "hippocampus": "Hippocampus",
+    "cerebellum": "Cerebellum"
   },
-  "note": "Subcortical indices must be determined from TRIBE v2 output structure during Phase 0 validation. Update these values after running validation.ipynb and inspecting preds shape and segment labels."
+  "note": "Subcortical regions are resolved at runtime via TRIBE v2's get_subcortical_roi_indices(roi) using the Harvard-Oxford subcortical atlas (sub-maxprob-thr50). Pass the roi_name values directly to that function. Cerebellum is not yet supported by TRIBE v2's plotting module (NotImplementedError) — exclude from visualization, include in report card with fallback to zeros."
 }

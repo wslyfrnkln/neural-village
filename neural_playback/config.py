@@ -31,5 +31,5 @@ def get_device() -> str:
         device = "mps"
     else:
         device = "cpu"
-    logging.info(f"[neural-playback] device selected: {device}")
+    logging.info(f"[neural-village] device selected: {device}")
     return device

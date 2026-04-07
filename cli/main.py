@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 @click.group()
 def cli():
-    """neural-playback — run your music through a brain."""
+    """neural-village — run your music through a brain."""
     pass
 
 
@@ -40,7 +40,7 @@ def analyze(input_path, output_dir, device, track_name, no_render, no_chart, out
     if track_name is None:
         track_name = input_path.stem
 
-    click.echo(f"neural-playback: {input_path.name}")
+    click.echo(f"neural-village: {input_path.name}")
 
     # Preprocess
     click.echo("Preprocessing audio...")

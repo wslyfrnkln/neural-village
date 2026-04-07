@@ -1,4 +1,4 @@
-"""ROI mapping utilities for neural-playback.
+"""ROI mapping utilities for neural-village.
 
 Maps vertex-level TRIBE v2 predictions to named brain regions using the
 curated ROI-to-music-trait mapping in data/roi_music_map.json.

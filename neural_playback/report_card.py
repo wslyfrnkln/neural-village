@@ -1,4 +1,4 @@
-"""Neural report card generation for neural-playback.
+"""Neural report card generation for neural-village.
 
 Converts TRIBE v2 ROI activation timeseries into 0-10 trait scores and
 a formatted plain-text report card.

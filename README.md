@@ -1,10 +1,10 @@
-# neural-playback
+# neural-village
 
 Run your music through a brain.
 
 [![CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/)
-[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/wesleyfranklin/neural-playback/blob/main/notebooks/neural_playback_demo.ipynb)
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/wslyfrnkln/neural-village/blob/main/notebooks/neural_playback_demo.ipynb)
 
 Predict neural activation patterns from audio using Meta FAIR's [TRIBE v2](https://github.com/facebookresearch/tribev2) — a brain prediction foundation model. Upload an MP3, get back a labeled brain render showing which regions lit up and what that means for your music.
 
@@ -31,8 +31,8 @@ Click **Open in Colab** above. Change runtime to T4 GPU. Upload your MP3. Run al
 ### Local (M4 Max / CUDA GPU)
 
 ```bash
-git clone https://github.com/wesleyfranklin/neural-playback.git
-cd neural-playback
+git clone https://github.com/wslyfrnkln/neural-village.git
+cd neural-village
 pip install -r requirements.txt
 python cli/main.py analyze --input song.mp3 --output ./results/
 ```
