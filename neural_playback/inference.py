@@ -37,7 +37,11 @@ def load_model(
 
     logger.info("Loading TRIBE v2 model (device=%s, cache=%s)", device, cache_dir)
     t0 = time.time()
-    model = TribeModel.from_pretrained(config.MODEL_ID, cache_folder=str(cache_dir))
+    model = TribeModel.from_pretrained(
+        config.MODEL_ID,
+        cache_folder=str(cache_dir),
+        config_update={"data": {"text_feature": {"model_name": "Qwen/Qwen3-0.6B", "device": "cpu"}}},
+    )
     elapsed = time.time() - t0
     logger.info("TRIBE v2 model loaded in %.1fs", elapsed)
     return model
