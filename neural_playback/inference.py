@@ -37,10 +37,19 @@ def load_model(
 
     logger.info("Loading TRIBE v2 model (device=%s, cache=%s)", device, cache_dir)
     t0 = time.time()
+    # Feature extractors (Wav2Vec-BERT, Qwen) must run on cpu — MPS has unsupported ops
+    # and the config.yaml hardcodes "cuda". Brain model uses the requested device.
+    extractor_device = "cpu"
     model = TribeModel.from_pretrained(
         config.MODEL_ID,
+        device=device,
         cache_folder=str(cache_dir),
-        config_update={"data": {"text_feature": {"model_name": "Qwen/Qwen3-0.6B", "device": "cpu"}}},
+        config_update={
+            "data": {
+                "audio_feature": {"device": extractor_device},
+                "text_feature": {"model_name": "Qwen/Qwen3-0.6B", "device": extractor_device},
+            }
+        },
     )
     elapsed = time.time() - t0
     logger.info("TRIBE v2 model loaded in %.1fs", elapsed)
