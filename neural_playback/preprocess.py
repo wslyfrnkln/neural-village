@@ -31,14 +31,14 @@ def preprocess_audio(
     input_path: str | Path,
     output_dir: str | Path | None = None,
 ) -> Path:
-    """Convert audio file to 16kHz mono MP4 container for TRIBE v2 input.
+    """Convert audio file to 16kHz mono WAV for TRIBE v2 audio-path input.
 
     Args:
         input_path: Path to input audio file (MP3, WAV, FLAC, M4A, OGG, AAC).
-        output_dir: Directory to write output MP4. Uses a temp dir if None.
+        output_dir: Directory to write output WAV. Uses a temp dir if None.
 
     Returns:
-        Path to the output MP4 file.
+        Path to the output 16kHz mono WAV file.
 
     Raises:
         FileNotFoundError: If input_path does not exist.
@@ -64,9 +64,7 @@ def preprocess_audio(
 
     stem = input_path.stem
     wav_path = output_dir / f"{stem}_16k_mono.wav"
-    mp4_path = output_dir / f"{stem}.mp4"
 
-    # Step 1: convert to 16kHz mono WAV
     logger.info("Converting %s to 16kHz mono WAV: %s", input_path, wav_path)
     try:
         subprocess.run(
@@ -83,25 +81,5 @@ def preprocess_audio(
             f"ffmpeg WAV conversion failed: {e.stderr.decode()}"
         ) from e
 
-    # Step 2: wrap in MP4 container with black video track (required by TRIBE v2)
-    logger.info("Wrapping WAV in MP4 container: %s", mp4_path)
-    try:
-        subprocess.run(
-            [
-                "ffmpeg", "-y",
-                "-i", str(wav_path),
-                "-f", "lavfi", "-i", "color=c=black:s=320x240:r=1",
-                "-shortest",
-                "-c:v", "libx264", "-c:a", "aac",
-                str(mp4_path),
-            ],
-            capture_output=True,
-            check=True,
-        )
-    except subprocess.CalledProcessError as e:
-        raise RuntimeError(
-            f"ffmpeg MP4 wrapping failed: {e.stderr.decode()}"
-        ) from e
-
-    logger.info("Preprocessing complete: %s", mp4_path)
-    return mp4_path
+    logger.info("Preprocessing complete: %s", wav_path)
+    return wav_path

@@ -49,13 +49,16 @@ def load_model(
 
 def predict_brain_response(
     model,
-    mp4_path: str | Path,
+    audio_path: str | Path,
 ) -> tuple[np.ndarray, list]:
-    """Run TRIBE v2 inference on a prepared MP4 file.
+    """Run TRIBE v2 inference on a 16kHz mono WAV file.
+
+    Uses the audio-only path in TRIBE v2, bypassing the V-JEPA2 video encoder
+    which would otherwise run on black frames and dominate inference time.
 
     Args:
         model: Loaded TribeModel instance (from load_model).
-        mp4_path: Path to MP4 file (16kHz mono audio, black video track).
+        audio_path: Path to 16kHz mono WAV file.
 
     Returns:
         Tuple of (preds, segments) where preds is a numpy array of shape
@@ -63,15 +66,15 @@ def predict_brain_response(
         and segments is a list of segment metadata.
 
     Raises:
-        FileNotFoundError: If mp4_path does not exist.
+        FileNotFoundError: If audio_path does not exist.
     """
-    mp4_path = Path(mp4_path)
-    if not mp4_path.exists():
-        raise FileNotFoundError(f"MP4 file not found: {mp4_path}")
+    audio_path = Path(audio_path)
+    if not audio_path.exists():
+        raise FileNotFoundError(f"Audio file not found: {audio_path}")
 
-    logger.info("Running TRIBE v2 inference on %s", mp4_path)
+    logger.info("Running TRIBE v2 inference on %s", audio_path)
     t0 = time.time()
-    df = model.get_events_dataframe(video_path=str(mp4_path))
+    df = model.get_events_dataframe(audio_path=str(audio_path))
     preds, segments = model.predict(events=df)
     elapsed = time.time() - t0
 
@@ -95,14 +98,14 @@ def predict_from_audio(
         cache_dir: Model cache directory. Uses config.CACHE_DIR if None.
 
     Returns:
-        Tuple of (preds, segments, mp4_path) where preds is shape
+        Tuple of (preds, segments, wav_path) where preds is shape
         (n_timesteps, n_vertices), segments is metadata list, and
-        mp4_path is the preprocessed MP4 used for inference.
+        wav_path is the preprocessed 16kHz mono WAV used for inference.
     """
-    mp4_path = preprocess_audio(audio_path)
+    wav_path = preprocess_audio(audio_path)
 
     if model is None:
         model = load_model(cache_dir=cache_dir)
 
-    preds, segments = predict_brain_response(model, mp4_path)
-    return preds, segments, mp4_path
+    preds, segments = predict_brain_response(model, wav_path)
+    return preds, segments, wav_path
