@@ -1,7 +1,7 @@
 # neural-village — Project Tracker
 
-**Last Updated:** 2026-04-07
-**Status:** Phase 6 (visualization tests) next | Phase 7 blocked on Colab GPU quota (~24h reset) | Health: green
+**Last Updated:** 2026-04-08
+**Status:** Phase 6 (visualization tests) next | Phase 7 blocked on Colab GPU quota (reset ~24h from 2026-04-07) | Health: green
 **Owner:** WESLEYFRANKLIN
 **Goal:** Run a song through Meta FAIR's TRIBE v2 brain prediction model. Output annotated brain activation render + temporal chart + neural report card. Colab-first. Open source. TikTok demo as launch vehicle.
 **Stack:** Python 3.10+, tribev2, PyTorch (CUDA/MPS), Nilearn, Plotly, ffmpeg, Jupyter/Colab
@@ -70,6 +70,9 @@ MP3 → [ffmpeg: 16kHz mono MP4] → [TRIBE v2: brain prediction] → preds (n_t
 | 2026-04-07 | Repo renamed neural-playback → neural-village. GitHub: wslyfrnkln/neural-village. |
 | 2026-04-07 | VRAM gate cleared — T4 has 15.6GB, 14GB threshold confirmed safe. |
 | 2026-04-07 | MPS backend confirmed broken for TRIBE v2 inference — Wav2Vec-BERT stalls at "Extracting words from audio". CPU fallback needed for local dev. |
+| 2026-04-08 | Project moved to `~/Development/Judo/projects/neural-village/` — was incorrectly placed at `~/Development/neural-playback`. |
+| 2026-04-08 | `destrieux_subset.json` TBD indices removed — subcortical resolved by name at runtime, not hardcoded. No blocked work. |
+| 2026-04-08 | `claude-village` launcher added to `.zshrc`. Context file at `~/.claude/contexts/neural-village.md`. `.zshrc` restored from backup (was wiped). |
 
 ---
 
